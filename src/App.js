@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [todos, setTodos] = useState([
+    {id: 1, content: 'React 시험 통과하기'},
+  ])
+  const [content, setContent] = useState('')
+
+  const contentChangeHandler = (event) => {
+    setContent(event.target.value)
+  }
+
+  const clickAddButtonHandler = () => {
+    const newContent = {
+      id: todos.length + 1,
+      content
+    }
+    setTodos([...todos, newContent])
+    setContent('')
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='total-box'>
+      <div className='input-box'>
+        <input type="text" value={content} onChange={contentChangeHandler}/>
+        <button onClick={clickAddButtonHandler}>추가하기</button>
+      </div>
+
+      <div className='logo-box'>Todo List</div>
+
+      <div className='main-box'>
+        {
+          todos.map((item) => {
+            return (
+              <div key={item.id} className='content-box'>{item.content}</div>
+            )
+          })
+        }
+      </div>
+
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
