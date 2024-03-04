@@ -24,23 +24,25 @@ function App() {
     <div className='total-box'>
       <div className='input-box'>
         <input type="text" value={content} onChange={contentChangeHandler}/>
-        <button onClick={clickAddButtonHandler}>추가하기</button>
+        <Button clickAddButtonHandler={clickAddButtonHandler}>추가하기</Button>
       </div>
 
       <div className='logo-box'>Todo List</div>
 
       <div className='main-box'>
-        {
-          todos.map((item) => {
-            return (
-              <div key={item.id} className='content-box'>{item.content}</div>
-            )
-          })
-        }
+        {todos.map((item) => { return <Todo item = {item}/> })}
       </div>
 
     </div>
   )
+}
+
+const Button = ({clickAddButtonHandler, children}) => {
+  return <button onClick={clickAddButtonHandler}>{children}</button>
+}
+
+const Todo = ({item}) => {
+  return <div key={item.id} className='content-box'>{item.content}</div>
 }
 
 export default App
